@@ -1,13 +1,23 @@
-// server/index.js
 const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const movieRoutes = require('./routes/movies.js');
+
+dotenv.config();
+
 const app = express();
-const port = 5000; // You can choose any port you prefer
+app.use(cors());
+app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello from Express Server');
-});
+app.use('api/movies', movieRoutes);
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
+
+const PORT = process.env.PORT; // You can choose any port you prefer
+
+mongoose
+    .connect(process.env.MONGO_URI)
+    .then(() => {
+      app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    })
+    .catch((err) => console.error(err));
