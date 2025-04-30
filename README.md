@@ -4,7 +4,7 @@
 ## 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/MovieDatabase.git
+git clone https://github.com/MicsQuad/MovieDatabase.git
 cd MovieDatabase
 ```
 
