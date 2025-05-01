@@ -25,13 +25,20 @@ npm install
 cd ../server
 npm install
 ```
+
+3. Install dependencies in the server folder
+```bash
+cd ../server
+npm install express mongoose dotenv cors bcrypt
+```
+
  
- 3.  To  run  it  all:
+ 4.  To  run  it  all:
 
 ```bash
 cd ..
 npm run dev
 ```
 
-## 3. Additional Information
+## 5. Additional Information
 ...
