@@ -1,5 +1,6 @@
 const express = require('express');
-const Member = require('../models/Member.js');
+const bcrypt = require('bcrypt');
+const { Member } = require('../models/models.js');
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -17,22 +18,21 @@ router.post('/login', async (req, res) => {
 
     try {
         // Check if the member exists
-        const member = await Member.exists({ email });
-        if (!member) {
-            return res.status(401).json({ message: 'Invalid credentials' });
+        const memberData = await Member.findOne({ email });
+        if (!memberData) {
+            return res.status(400).json({ message: 'Invalid credentials' })
         }
 
-        // Now find the member since we know it exists
-        const memberData = await Member.findOne({ email });
-
-        // Check if the password matches
-        if (memberData.password !== password) {
-            return res.status(401).json({ message: 'Invalid credentials' });
+        // Check if the password matches using bcrypt
+        const match = await bcrypt.compare(password, memberData.password);
+        if (!match) {
+            return res.status(400).json({ message: 'Invalid credentials' })
         }
 
         // If the password matches, return success
         res.json({
             message: 'Login successful',
+            user: { id: memberData._id, username: memberData.username }
         });
     } catch (error) {
         console.error(error);

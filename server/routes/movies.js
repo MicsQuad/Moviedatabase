@@ -1,6 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const Movie = require('../models/Movie.js');
+const { Movie } = require('../models/models');
 
 dotenv.config();
 
@@ -44,7 +44,7 @@ router.get('/search', async (req, res) => {
 
         await newMovie.save();
 
-        res.json(newMovie);
+        res.status(201).json(newMovie);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error fetching movie from OMDb' });
