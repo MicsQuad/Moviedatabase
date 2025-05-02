@@ -1,8 +1,31 @@
 import React from 'react';
+import './Header.css';
+import { FaSearch, FaUserCircle, FaChevronDown } from 'react-icons/fa'; // To get icons
+import { LuMenu } from "react-icons/lu";
 
 function Header() {
   return (
-    <div>Header placeholder</div>
+    <header className="header">
+      <div className="header-left-side">
+        <button className="header-menu-btn header-btn">
+          <LuMenu />
+        </button>
+        <h1 className="header-app-name">MovieMaze</h1>
+        <button className="header-dropdown-btn header-btn">
+          <FaChevronDown className="header-dropdown-icon" />
+        </button>
+      </div>
+      
+      <div className="header-right-side">
+        <button className="header_search-btn header-btn">
+          <FaSearch />
+        </button>
+        
+        <button className="header-user-btn header-btn">
+          <FaUserCircle />
+        </button>
+      </div>
+    </header>
   );
 }
 
