@@ -17,9 +17,6 @@ server/build/
 .env.local
 .env.*.local
 
-# Vite cache
-client/.vite/
-
 # OS-specific files
 .DS_Store   # macOS
 Thumbs.db   # Windows

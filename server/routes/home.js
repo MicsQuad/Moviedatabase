@@ -1,5 +1,5 @@
 const express = require('express');
-const Movie = require('../models/Movie.js');
+const { Movie } = require('../models/models');
 const router = express.Router();
 
 // GET all movies for home page
