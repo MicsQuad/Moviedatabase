@@ -44,15 +44,9 @@ app.listen(PORT, () => {
 })
 
 // DO NOT USE mongoose.connect() for multiple databases
-const userConnection = mongoose.createConnection(MONGO_URI_USER, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+const userConnection = mongoose.createConnection(MONGO_URI_USER);
 
-const movieConnection = mongoose.createConnection(MONGO_URI_MOVIE, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+const movieConnection = mongoose.createConnection(MONGO_URI_MOVIE);
 
 // Models
 const Member = userConnection.model('Member', memberSchema);
