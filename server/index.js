@@ -8,6 +8,7 @@ const movieRoutes = require('./routes/movies');
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const favouriteRoutes = require('./routes/favourite');
+const watchlistRoutes = require('./routes/watchlist');
 
 // Database connections
 const memberSchema = require('./models/Member');
@@ -26,6 +27,7 @@ app.use('/api', movieRoutes);
 app.use('/api', loginRoutes);
 app.use('/api', registerRoutes);
 app.use('/api', favouriteRoutes);
+app.use('/api', watchlistRoutes);
 
 app.get('/', (req, res) => {
     res.send('Welcome to the Movie Database API!');
