@@ -1,0 +1,84 @@
+#root {
+    width: 100%;
+    justify-content: center;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr ;
+}
+
+#loginPage {
+    background-color: #2c3e50;
+    margin-top: 20px;
+    margin-bottom: 20%;
+    padding: 10px;
+    border-radius: 20px;
+
+    height: 80vh;
+    position: relative;
+}
+
+#loginForm {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    grid-column: 2;
+    justify-content: space-evenly;
+    align-items: center;
+    
+    height: 55vh;
+    margin: 20px;
+    padding-bottom: 20px;
+
+    border: 1px solid white;
+    border-radius: 20px;
+
+    background-color: #2c3e50;
+}
+
+.formField {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+input {
+    margin-top: 10px;
+    width: 100%;
+}
+
+#formTitle {
+    font-size: 40px;
+    text-align: center;
+}
+
+#userIcon {
+    display: block;
+    margin: 20px auto 10px auto;
+    font-size: 100px;
+    align-self: center;
+    justify-self: center;
+}
+
+#backBtn {
+    background-color: transparent;
+}
+
+#backBtn:hover {
+    border-color:transparent;
+}
+
+#backArrow {
+    font-size: 40px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+#loginBtn {
+    width: 90px;
+}
+
+#loginIcon {
+    font-size: 30px;
+}
+
