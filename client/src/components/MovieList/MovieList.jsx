@@ -4,6 +4,7 @@
 
 import React, { useEffect, useState } from 'react';
 import MovieCard from '../MovieCard/MovieCard';
+import './MovieList.css';
 
 function MovieList() {
   // movies: for the current state
