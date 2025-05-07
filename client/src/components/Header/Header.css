@@ -22,7 +22,7 @@
 }
   
 .header-app-name {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
 }
   
@@ -30,3 +30,9 @@
     display: flex;
     align-items: center;
 }  
+
+@media (min-width: 768px) {
+    .header-app-name {
+        font-size: 24px;
+    }
+}

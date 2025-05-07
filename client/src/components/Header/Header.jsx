@@ -1,6 +1,7 @@
 import React from 'react';
 import './Header.css';
-import { FaSearch, FaUserCircle, FaChevronDown } from 'react-icons/fa'; // To get icons
+import SearchBar from '../SearchBar/SearchBar';
+import { FaUserCircle, FaChevronDown } from 'react-icons/fa'; // To get icons
 import { LuMenu } from "react-icons/lu";
 
 function Header() {
@@ -17,9 +18,7 @@ function Header() {
       </div>
       
       <div className="header-right-side">
-        <button className="header_search-btn header-btn">
-          <FaSearch />
-        </button>
+        <SearchBar />
         
         <button className="header-user-btn header-btn">
           <FaUserCircle />
