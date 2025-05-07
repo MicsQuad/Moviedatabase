@@ -20,9 +20,9 @@ function Header() {
       <div className="header-right-side">
         <SearchBar />
         
-        <button className="header-user-btn header-btn">
+        <a href='Login.html' className="header-user-btn header-btn">
           <FaUserCircle />
-        </button>
+        </a>
       </div>
     </header>
   );
