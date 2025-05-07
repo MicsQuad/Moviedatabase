@@ -5,7 +5,7 @@ const router = express.Router();
 // GET all movies for home page
 router.get('/home', async (req, res) => {
     try {
-        const movies = await Movie.find({});
+        const movies = await Movie.find({}).limit(25);
         res.status(200).json(movies);
     } catch (err) {
         console.error(err);

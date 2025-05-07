@@ -7,9 +7,8 @@ const watchStatusSchema = require('./WatchStatus.js');
 
 dotenv.config();
 
-const userConnection = mongoose.createConnection(process.env.MONGO_URI_USER,{});
-
-const movieConnection = mongoose.createConnection(process.env.MONGO_URI_MOVIE,{});
+const userConnection = mongoose.createConnection(process.env.MONGO_URI_USER);
+const movieConnection = mongoose.createConnection(process.env.MONGO_URI_MOVIE);
 
 const Member = userConnection.model('Member', memberSchema);
 const Movie = movieConnection.model('Movie', movieSchema);
@@ -20,5 +19,5 @@ module.exports = {
     Member,
     Movie,
     Favourite,
-    WatchStatus,
+    WatchStatus
 };
