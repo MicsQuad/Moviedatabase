@@ -4,7 +4,7 @@ import SearchBar from '../SearchBar/SearchBar';
 import { FaUserCircle, FaChevronDown } from 'react-icons/fa'; // To get icons
 import { LuMenu } from "react-icons/lu";
 
-function Header() {
+function Header(props) {
   return (
     <header className="header">
       <div className="header-left-side">
@@ -18,7 +18,7 @@ function Header() {
       </div>
       
       <div className="header-right-side">
-        <SearchBar />
+        <SearchBar value={props.searchText} setValue={props.setSearchText} />
         
         <a href='Login.html' className="header-user-btn header-btn">
           <FaUserCircle />
