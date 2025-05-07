@@ -51,6 +51,7 @@
 .formField {
     display: flex;
     flex-direction: column;
+    text-align: center;
     
 }
 
@@ -85,11 +86,17 @@ input {
     position: absolute;
     top: 15px;
     left: 15px;
+    color: white;
+}
+
+#loginBtnWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 #loginBtn {
     width: 60px;
-    
 
     @media (min-height: 800px) {
         width: 90px;

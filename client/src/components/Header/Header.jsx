@@ -21,7 +21,7 @@ function Header() {
           <FaSearch />
         </button>
         
-        <a href='LogReg.html' className="header-user-btn header-btn">
+        <a href='Login.html' className="header-user-btn header-btn">
           <FaUserCircle />
         </a>
       </div>
