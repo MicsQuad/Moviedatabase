@@ -6,9 +6,9 @@ function LoginForm() {
     return (
         <div id='loginPage'>
             <div id='topIcons'>
-                <button id='backBtn'>
+                <a href='./index.html' id='backBtn'>
                     <FaRegArrowAltCircleLeft id='backArrow' />
-                </button>
+                </a>
                 <FaUserCircle id='userIcon'/>
             </div>
             <form id='loginForm'>
@@ -23,9 +23,12 @@ function LoginForm() {
                     <label for='password'>Password:</label>
                     <input type='password' id='password' name='password'/>
                 </div>
-                <button type='submit' id='loginBtn'>
-                    <FaSignInAlt id='loginIcon' />
-                </button>
+
+                <div class='formField'>
+                    <button type='submit' id='loginBtn'>
+                        <FaSignInAlt id='loginIcon' />
+                    </button>
+                </div>
             </form>
         </div>
     )
