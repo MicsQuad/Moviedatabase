@@ -1,0 +1,14 @@
+.movie-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  @media (min-width: 768px) {
+    .movie-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
