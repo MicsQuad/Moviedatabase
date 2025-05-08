@@ -6,6 +6,7 @@ import "./App.css";
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [moviesAreLoaded, setMoviesAreLoaded] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [genreFilter, setGenreFilter] = useState(undefined);
   const [yearFilter, setYearFilter] = useState(undefined);
@@ -16,6 +17,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         setMovies(data);
+        setMoviesAreLoaded(true);
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);
@@ -54,6 +56,8 @@ function App() {
     );
   }
 
+  const noResults = moviesAreLoaded && moviesToDisplay.length === 0;
+
   return (
     <>
       <Header searchText={searchText} setSearchText={setSearchText} />
@@ -68,7 +72,11 @@ function App() {
         setYearFilter={setYearFilter}
         years={years}
       />
-      <MovieList movies={moviesToDisplay} />
+      {noResults ? (
+        <div>No results</div>
+      ) : (
+        <MovieList movies={moviesToDisplay} />
+      )}
     </>
   );
 }
