@@ -1,47 +1,76 @@
-import React, { useState, useEffect } from 'react';
-import Header from './components/Header/Header'; // Import Header component
-import MovieList from './components/MovieList/MovieList'; // Import MovieList component
-import Filters from './components/Filters/Filters';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Header from "./components/Header/Header";
+import MovieList from "./components/MovieList/MovieList";
+import Filters from "./components/Filters/Filters";
+import "./App.css";
 
 function App() {
-  // movies: for the current state
-  // setMovies: function that updates the state
   const [movies, setMovies] = useState([]);
   const [searchText, setSearchText] = useState("");
-  const [genreFilter, setGenreFilter] = useState(undefined)
+  const [genreFilter, setGenreFilter] = useState(undefined);
+  const [yearFilter, setYearFilter] = useState(undefined);
+  const [languageFilter, setLanguageFilter] = useState(undefined);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/home')
+    fetch("http://localhost:5000/api/home")
       .then((res) => res.json())
       .then((data) => {
-        setMovies(data); // update the state
+        setMovies(data);
       })
       .catch((error) => {
-        console.error('Error fetching movies:', error);
+        console.error("Error fetching movies:", error);
       });
-  }, []); // runs only on the first render
+  }, []);
 
-  const genres = [...new Set(movies.flatMap(({ genre }) => genre.split(/\s*,\s*/)))].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+  const genres = [
+    ...new Set(movies.flatMap(({ genre }) => genre.split(/\s*,\s*/))),
+  ].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+  const languages = [
+    ...new Set(movies.flatMap(({ language }) => language.split(/\s*,\s*/))),
+  ].sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+  const years = [...new Set(movies.map((movie) => movie.releaseYear))].sort();
 
-  const isSearchTextEmpty = searchText === ""
+  const isSearchTextEmpty = searchText === "";
 
-  // const moviesToDisplay = isSearchTextEmpty ? movies : movies.filter(({title}) => title.toLowerCase().includes(searchText.toLowerCase()))
-  let moviesToDisplay = [...movies]
+  let moviesToDisplay = [...movies];
   if (!isSearchTextEmpty) {
-    moviesToDisplay = moviesToDisplay.filter(({ title }) => title.toLowerCase().includes(searchText.toLowerCase()))
+    moviesToDisplay = moviesToDisplay.filter(({ title }) =>
+      title.toLowerCase().includes(searchText.toLowerCase()),
+    );
   }
   if (genreFilter) {
-    moviesToDisplay = moviesToDisplay.filter(({ genre }) => genre.includes(genreFilter))
+    moviesToDisplay = moviesToDisplay.filter(({ genre }) =>
+      genre.includes(genreFilter),
+    );
+  }
+  if (languageFilter) {
+    moviesToDisplay = moviesToDisplay.filter(({ language }) =>
+      language.includes(languageFilter),
+    );
+  }
+  if (yearFilter) {
+    moviesToDisplay = moviesToDisplay.filter(
+      ({ releaseYear }) => releaseYear === yearFilter,
+    );
   }
 
   return (
     <>
-    <Header searchText={searchText} setSearchText={setSearchText}/>
-    <Filters genres={genres} genreFilter={genreFilter} setGenreFilter={setGenreFilter} />
-    <MovieList movies={moviesToDisplay} />
+      <Header searchText={searchText} setSearchText={setSearchText} />
+      <Filters
+        genreFilter={genreFilter}
+        setGenreFilter={setGenreFilter}
+        genres={genres}
+        languageFilter={languageFilter}
+        setLanguageFilter={setLanguageFilter}
+        languages={languages}
+        yearFilter={yearFilter}
+        setYearFilter={setYearFilter}
+        years={years}
+      />
+      <MovieList movies={moviesToDisplay} />
     </>
-  )
+  );
 }
 
 export default App;
