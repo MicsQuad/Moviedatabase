@@ -1,8 +1,34 @@
 import React from 'react';
+import { useState } from "react"
+import axios from "axios"
 import './Login.css'
-import { FaUserCircle, FaRegArrowAltCircleLeft, FaSignInAlt } from 'react-icons/fa'; // To get icons
+import { FaUserCircle, FaRegArrowAltCircleLeft, FaSignInAlt } from 'react-icons/fa'
 
 function LoginForm() {
+    const [formData, setFormData] = useState({  email: "", password: "" })
+    //const navigate = useNavigate
+    
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    };
+
+    //log in and store token locally
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            const response = await axios.post("http://localhost:5000/api/login", formData)
+            localStorage.setItem('token', response.data.token)
+            localStorage.setItem('user', JSON.stringify(response.data.user))
+            alert("You have successfully logged in!")
+            window.location.href = "/index.html"
+        } catch (error) {
+            console.error(error.response?.data || error)
+            alert(error.response?.data?.message || "Login failed")
+        }
+    }
+
+    //generate DOM content
     return (
         <div id='loginPage'>
             <div id='topIcons'>
@@ -11,17 +37,17 @@ function LoginForm() {
                 </a>
                 <FaUserCircle id='userIcon'/>
             </div>
-            <form id='loginForm'>
+            <form id='loginForm' onSubmit={handleSubmit}>
                 <h2 id='formTitle'>Sign in</h2>
 
                 <div class='formField'>
-                    <label for='userName'>Username:</label>
-                    <input type='text' name='userName' id='userName'/>
+                    <label for='email'>Email:</label>
+                    <input type='text' name='email' value={formData.email} onChange={handleChange}/>
                 </div>
                 
                 <div class='formField'>
                     <label for='password'>Password:</label>
-                    <input type='password' id='password' name='password'/>
+                    <input type='password' name='password' value={formData.password} onChange={handleChange}/>
                 </div>
 
                 <div id='loginBtnWrapper'>
