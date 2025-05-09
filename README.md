@@ -1,5 +1,5 @@
 
-# Moviedatabase
+# Movie Maze
 
 ## 1. Clone the repo
 
@@ -29,11 +29,11 @@ npm install
 3. Install dependencies in the server folder
 ```bash
 cd ../server
-npm install express mongoose dotenv cors bcrypt
+npm install express mongoose dotenv cors bcrypt jsonwebtoken
 ```
 
  
- 4.  To  run  it  all:
+4.  To  run  it  all:
 
 ```bash
 cd ..
