@@ -21,6 +21,7 @@
     "get-caller-file": "^2.0.5",
     "has-flag": "^4.0.0",
     "is-fullwidth-code-point": "^3.0.0",
+    "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "mongodb": "^6.16.0",
     "react-icons": "^5.5.0",
