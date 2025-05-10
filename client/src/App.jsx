@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import MovieList from "./components/MovieList/MovieList";
+import SearchBar from "./components/SearchBar/SearchBar";
 import Filters from "./components/Filters/Filters";
 import "./App.css";
 
@@ -60,7 +61,10 @@ function App() {
 
   return (
     <>
-      <Header searchText={searchText} setSearchText={setSearchText} />
+      <Header />
+      <div id="options-wrapper">
+        <SearchBar value={searchText} setValue={setSearchText} />
+      </div>
       <Filters
         genreFilter={genreFilter}
         setGenreFilter={setGenreFilter}
