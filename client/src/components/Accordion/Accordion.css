@@ -1,0 +1,7 @@
+.accordion:not(.is-open) {
+  display: none;
+}
+
+.accordion {
+  margin-bottom: 30px;
+}

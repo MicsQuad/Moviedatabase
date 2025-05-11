@@ -1,6 +1,11 @@
+import "./Filter.css";
+
 function Filter(props) {
   return (
-    <div id="filter-container">
+    <div className="filter-container">
+      {props.labelName && (
+        <label className="filter-label">{props.labelName}:</label>
+      )}
       <select
         value={props.valueToKey(props.value)}
         onChange={(e) => props.setValue(props.keyToValue(e.target.value))}
