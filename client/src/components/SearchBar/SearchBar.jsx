@@ -1,5 +1,6 @@
 import React from "react";
 import { FaSearch, FaFilter } from "react-icons/fa";
+import { FaBookOpen } from "react-icons/fa6";
 import "./SearchBar.css";
 
 function SearchBar(props) {
@@ -11,8 +12,25 @@ function SearchBar(props) {
         value={props.value}
         onChange={(e) => props.setValue(e.target.value)}
       />
-      <button onClick={() => props.setShowFilters(!props.showFilters)}>
+      <button
+        className="search-bar-button"
+        onClick={() =>
+          props.showFilters === "movieDetails"
+            ? props.setShowFilters("none")
+            : props.setShowFilters("movieDetails")
+        }
+      >
         <FaFilter id="filter-icon" />
+      </button>
+      <button
+        className="search-bar-button"
+        onClick={() =>
+          props.showFilters === "libraryStatus"
+            ? props.setShowFilters("none")
+            : props.setShowFilters("libraryStatus")
+        }
+      >
+        <FaBookOpen id="library-icon" />
       </button>
     </div>
   );

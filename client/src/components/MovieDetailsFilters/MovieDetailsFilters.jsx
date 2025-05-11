@@ -1,9 +1,9 @@
 import GenreFilter from "../GenreFilter/GenreFilter";
 import LanguageFilter from "../LanguageFilter/LanguageFilter";
 import YearFilter from "../YearFilter/YearFilter";
-import "./Filters.css";
+import "./MovieDetailsFilters.css";
 
-function Filters(props) {
+function MovieDetailsFilters(props) {
   return (
     <div className="filters-container">
       <p>Filters</p>
@@ -28,4 +28,4 @@ function Filters(props) {
   );
 }
 
-export default Filters;
+export default MovieDetailsFilters;

@@ -1,5 +1,5 @@
 .input-wrapper {
-  width: 80%;
+  width: 100%;
   border-radius: 10px;
   height: 2.5rem;
   padding: 0 15px;
@@ -29,4 +29,13 @@ input:focus {
   input {
     font-size: 16px;
   }
+
+  .input-wrapper {
+    width: 50%;
+  }
+}
+
+.search-bar-button {
+  height: 100%;
+  background-color: transparent;
 }

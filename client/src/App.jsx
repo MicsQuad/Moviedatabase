@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import MovieList from "./components/MovieList/MovieList";
 import SearchBar from "./components/SearchBar/SearchBar";
-import Filters from "./components/Filters/Filters";
+import MovieDetailsFilters from "./components/MovieDetailsFilters/MovieDetailsFilters";
+import LibraryFilters from "./components/LibraryFilters/LibraryFilters";
 import Accordion from "./components/Accordion/Accordion";
 import "./App.css";
 
@@ -13,7 +14,8 @@ function App() {
   const [genreFilter, setGenreFilter] = useState(undefined);
   const [yearFilter, setYearFilter] = useState(undefined);
   const [languageFilter, setLanguageFilter] = useState(undefined);
-  const [showFilters, setShowFilters] = useState(false);
+  const [libraryFilter, setLibraryFilter] = useState("no"); // "no" / "inLibraryAll" / "inLibraryWatched" / "inLibraryNotWatched"
+  const [showFilters, setShowFilters] = useState("none"); // "none" / "movieDetails" / "libraryStatus"
 
   useEffect(() => {
     fetch("http://localhost:5000/api/home")
@@ -72,8 +74,8 @@ function App() {
           setShowFilters={setShowFilters}
         />
       </div>
-      <Accordion isOpen={showFilters}>
-        <Filters
+      <Accordion isOpen={showFilters === "movieDetails"}>
+        <MovieDetailsFilters
           genreFilter={genreFilter}
           setGenreFilter={setGenreFilter}
           genres={genres}
@@ -83,6 +85,12 @@ function App() {
           yearFilter={yearFilter}
           setYearFilter={setYearFilter}
           years={years}
+        />
+      </Accordion>
+      <Accordion isOpen={showFilters === "libraryStatus"}>
+        <LibraryFilters
+          libraryFilter={libraryFilter}
+          setLibraryFilter={setLibraryFilter}
         />
       </Accordion>
       <hr></hr>
