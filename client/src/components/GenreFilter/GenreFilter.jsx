@@ -5,6 +5,7 @@ const keyForEmptyGenreFilter = "None";
 function GenreFilter(props) {
   return (
     <Filter
+      labelName="Genre"
       value={props.genreFilter}
       setValue={props.setGenreFilter}
       valueToKey={(value) => value ?? keyForEmptyGenreFilter}

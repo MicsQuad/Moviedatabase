@@ -85,8 +85,9 @@ function App() {
           years={years}
         />
       </Accordion>
+      <hr></hr>
       {noResults ? (
-        <div>No results</div>
+        <div className="no-results-container">No results</div>
       ) : (
         <MovieList movies={moviesToDisplay} />
       )}

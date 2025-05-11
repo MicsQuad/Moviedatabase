@@ -5,6 +5,7 @@ const keyForEmptyLanguageFilter = "None";
 function LanguageFilter(props) {
   return (
     <Filter
+      labelName="Language"
       value={props.languageFilter}
       setValue={props.setLanguageFilter}
       valueToKey={(value) => value ?? keyForEmptyLanguageFilter}

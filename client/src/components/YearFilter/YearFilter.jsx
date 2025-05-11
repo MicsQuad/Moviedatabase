@@ -5,6 +5,7 @@ const keyForEmptyYearFilter = "None";
 function YearFilter(props) {
   return (
     <Filter
+      labelName="Year"
       value={props.yearFilter}
       setValue={props.setYearFilter}
       valueToKey={(value) => (value ? value.toString() : keyForEmptyYearFilter)}
