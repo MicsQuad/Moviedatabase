@@ -1,32 +1,55 @@
 .movie-card {
-    display: flex;
-    flex-direction: column;
-    border-radius: 8px;
-    align-items: center;
-    justify-content: space-between;
-    text-align: center;
-    padding: 20px;
-    gap: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  padding: 20px;
+  gap: 10px;
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-  
+
 .movie-poster {
-    width: 200px;
-    height: 300px;
-    object-fit: cover;
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
 }
-  
+
 .movie-title {
-    font-weight: bold;
-    margin-bottom: 5px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .movie-description {
-    color: #555;
+  color: #555;
+}
+
+.watched-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.bookmark-btn {
+  border-radius: 40px;
+  border: 1px solid black;
+}
+
+.watched-options {
+  height: 2.62rem;
+  border-radius: 0px 40px 40px 0px;
+}
+
+.visible {
+  border-radius: 40px 0px 0px 40px;
 }
 
 @media (min-width: 768px) {
-    .movie-card {
-        flex-direction: row;
-    }
+  .movie-card {
+    flex-direction: row;
+  }
 }
