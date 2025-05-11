@@ -11,7 +11,9 @@ function SearchBar(props) {
         value={props.value}
         onChange={(e) => props.setValue(e.target.value)}
       />
-      <FaFilter id="filter-icon" />
+      <button onClick={() => props.setShowFilters(!props.showFilters)}>
+        <FaFilter id="filter-icon" />
+      </button>
     </div>
   );
 }

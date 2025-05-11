@@ -3,6 +3,7 @@ import Header from "./components/Header/Header";
 import MovieList from "./components/MovieList/MovieList";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Filters from "./components/Filters/Filters";
+import Accordion from "./components/Accordion/Accordion";
 import "./App.css";
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
   const [genreFilter, setGenreFilter] = useState(undefined);
   const [yearFilter, setYearFilter] = useState(undefined);
   const [languageFilter, setLanguageFilter] = useState(undefined);
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/home")
@@ -63,19 +65,26 @@ function App() {
     <>
       <Header />
       <div id="options-wrapper">
-        <SearchBar value={searchText} setValue={setSearchText} />
+        <SearchBar
+          value={searchText}
+          setValue={setSearchText}
+          showFilters={showFilters}
+          setShowFilters={setShowFilters}
+        />
       </div>
-      <Filters
-        genreFilter={genreFilter}
-        setGenreFilter={setGenreFilter}
-        genres={genres}
-        languageFilter={languageFilter}
-        setLanguageFilter={setLanguageFilter}
-        languages={languages}
-        yearFilter={yearFilter}
-        setYearFilter={setYearFilter}
-        years={years}
-      />
+      <Accordion isOpen={showFilters}>
+        <Filters
+          genreFilter={genreFilter}
+          setGenreFilter={setGenreFilter}
+          genres={genres}
+          languageFilter={languageFilter}
+          setLanguageFilter={setLanguageFilter}
+          languages={languages}
+          yearFilter={yearFilter}
+          setYearFilter={setYearFilter}
+          years={years}
+        />
+      </Accordion>
       {noResults ? (
         <div>No results</div>
       ) : (

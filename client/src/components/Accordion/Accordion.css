@@ -1,0 +1,3 @@
+.accordion:not(.is-open) {
+  display: none;
+}

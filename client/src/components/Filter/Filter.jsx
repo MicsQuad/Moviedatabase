@@ -1,6 +1,6 @@
 function Filter(props) {
   return (
-    <div id="filter-container">
+    <div className="filter-container">
       <select
         value={props.valueToKey(props.value)}
         onChange={(e) => props.setValue(props.keyToValue(e.target.value))}
