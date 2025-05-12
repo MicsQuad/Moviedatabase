@@ -20,26 +20,34 @@ function MovieCard({ movie }) {
         <p>Language: {movie.language}</p>
         <p className="movie-description">{movie.description}</p>
         <div className="watched-container">
-          {/* {localStorage.getItem("isLoggedIn") === "true" && (
+          {!!localStorage.getItem("token") && (
             <button
               className={`bookmark-btn ${isOptionsVisible ? "visible" : ""}`}
               onClick={() => {
                 setIsOptionsVisible((previousValue) => !previousValue);
+                const user = JSON.parse(localStorage.getItem("user"));
+                const dataToSend = {
+                  memberId: user.id,
+                  movieId: movie._id,
+                  status: "to be watched",
+                };
+
+                fetch("http://localhost:5000/api/watchlist", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify(dataToSend),
+                })
+                  .then(() => {
+                    console.log("success");
+                  })
+                  .catch(() => {
+                    console.log("nah");
+                  });
               }}
             >
               {isOptionsVisible ? <FaBookmark /> : <FaRegBookmark />}
             </button>
-          )} */}
-          {
-            <button
-              className={`bookmark-btn ${isOptionsVisible ? "visible" : ""}`}
-              onClick={() => {
-                setIsOptionsVisible((previousValue) => !previousValue);
-              }}
-            >
-              {isOptionsVisible ? <FaBookmark /> : <FaRegBookmark />}
-            </button>
-          }
+          )}
 
           {isOptionsVisible && (
             <div className="watched-options-container">

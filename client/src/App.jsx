@@ -67,12 +67,6 @@ function App() {
   return (
     <>
       <Header />
-      <div>
-        {localStorage.getItem("isLoggedIn") === "true"
-          ? "User is logged in"
-          : "Not logged in"}
-      </div>
-      <div>{localStorage.user}</div>
       <About />
       <div id="options-wrapper">
         <SearchBar
