@@ -22,7 +22,7 @@ function SearchBar(props) {
       >
         <FaFilter id="filter-icon" />
       </button>
-      {/* {localStorage.getItem("isLoggedIn") === "true" && (
+      {!!localStorage.getItem("token") && (
         <button
           className="search-bar-button"
           onClick={() =>
@@ -33,17 +33,7 @@ function SearchBar(props) {
         >
           <FaBookOpen id="library-icon" />
         </button>
-      )} */}
-      <button
-        className="search-bar-button"
-        onClick={() =>
-          props.showFilters === "libraryStatus"
-            ? props.setShowFilters("none")
-            : props.setShowFilters("libraryStatus")
-        }
-      >
-        <FaBookOpen id="library-icon" />
-      </button>
+      )}
     </div>
   );
 }

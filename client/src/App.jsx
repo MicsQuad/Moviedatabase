@@ -11,6 +11,7 @@ import "./App.css";
 function App() {
   const [movies, setMovies] = useState([]);
   const [moviesAreLoaded, setMoviesAreLoaded] = useState(false);
+  const [library, setLibrary] = useState(undefined);
   const [searchText, setSearchText] = useState("");
   const [genreFilter, setGenreFilter] = useState(undefined);
   const [yearFilter, setYearFilter] = useState(undefined);
@@ -29,6 +30,70 @@ function App() {
         console.error("Error fetching movies:", error);
       });
   }, []);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (localStorage.getItem("token")) {
+      fetch(`http://localhost:5000/api/watchlist/${user.id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setLibrary(
+            data.map((entry) => ({
+              movieId: entry.movieId._id,
+              watched: entry.status === "watched", // to make it boolean
+            })),
+          );
+        })
+        .catch((error) => {
+          console.error("Error fetching watchlist:", error);
+        });
+    }
+  }, []);
+
+  const addMovieToLibrary = (movieId) => {
+    setLibrary([{ movieId, watched: false }, ...library]);
+
+    const user = JSON.parse(localStorage.getItem("user"));
+    const dataToSend = {
+      memberId: user.id,
+      movieId,
+      status: "to be watched",
+    };
+
+    fetch("http://localhost:5000/api/watchlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dataToSend),
+    })
+      .then(() => {
+        console.log("success");
+      })
+      .catch(() => {
+        console.log("nah");
+      });
+  };
+
+  const removeMovieFromLibrary = (movieId) => {
+    setLibrary(
+      library.filter((libraryEntry) => libraryEntry.movieId !== movieId),
+    );
+
+    // ... database
+  };
+
+  const setMovieWatchStatusInLibrary = (movieId, watched) => {
+    setLibrary(
+      library.map((libraryEntry) => {
+        if (libraryEntry.movieId == movieId) {
+          return { ...libraryEntry, watched };
+        } else {
+          return libraryEntry;
+        }
+      }),
+    );
+
+    // ... database
+  };
 
   const genres = [
     ...new Set(movies.flatMap(({ genre }) => genre.split(/\s*,\s*/))),
@@ -61,18 +126,24 @@ function App() {
       ({ releaseYear }) => releaseYear === yearFilter,
     );
   }
+  if (library && libraryFilter !== "no") {
+    moviesToDisplay = moviesToDisplay.filter(({ _id }) =>
+      library.some((libraryEntry) => {
+        const idMatches = libraryEntry.movieId === _id;
+        const statusMatches =
+          libraryFilter === "inLibraryAll" ||
+          (libraryFilter === "inLibraryWatched" && libraryEntry.watched) ||
+          (libraryFilter === "inLibraryNotWatched" && !libraryEntry.watched);
+        return idMatches && statusMatches;
+      }),
+    );
+  }
 
   const noResults = moviesAreLoaded && moviesToDisplay.length === 0;
 
   return (
     <>
       <Header />
-      <div>
-        {localStorage.getItem("isLoggedIn") === "true"
-          ? "User is logged in"
-          : "Not logged in"}
-      </div>
-      <div>{localStorage.user}</div>
       <About />
       <div id="options-wrapper">
         <SearchBar
@@ -105,7 +176,13 @@ function App() {
       {noResults ? (
         <div className="no-results-container">No results</div>
       ) : (
-        <MovieList movies={moviesToDisplay} />
+        <MovieList
+          movies={moviesToDisplay}
+          library={library}
+          addMovieToLibrary={addMovieToLibrary}
+          removeMovieFromLibrary={removeMovieFromLibrary}
+          setMovieWatchStatusInLibrary={setMovieWatchStatusInLibrary}
+        />
       )}
     </>
   );
