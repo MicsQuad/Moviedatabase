@@ -3,9 +3,15 @@ import "./MovieCard.css";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
 import { useState } from "react";
 
-function MovieCard({ movie }) {
-  const [isOptionsVisible, setIsOptionsVisible] = useState(false);
-
+function MovieCard({
+  movie,
+  showLibraryButtons,
+  isInLibrary,
+  watched,
+  setWatched,
+  addToLibrary,
+  removeFromLibrary,
+}) {
   return (
     <div className="movie-card">
       <img
@@ -20,40 +26,30 @@ function MovieCard({ movie }) {
         <p>Language: {movie.language}</p>
         <p className="movie-description">{movie.description}</p>
         <div className="watched-container">
-          {!!localStorage.getItem("token") && (
+          {showLibraryButtons && (
             <button
-              className={`bookmark-btn ${isOptionsVisible ? "visible" : ""}`}
+              className={`bookmark-btn ${isInLibrary ? "visible" : ""}`}
               onClick={() => {
-                setIsOptionsVisible((previousValue) => !previousValue);
-                const user = JSON.parse(localStorage.getItem("user"));
-                const dataToSend = {
-                  memberId: user.id,
-                  movieId: movie._id,
-                  status: "to be watched",
-                };
-
-                fetch("http://localhost:5000/api/watchlist", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify(dataToSend),
-                })
-                  .then(() => {
-                    console.log("success");
-                  })
-                  .catch(() => {
-                    console.log("nah");
-                  });
+                if (isInLibrary) {
+                  removeFromLibrary();
+                } else {
+                  addToLibrary();
+                }
               }}
             >
-              {isOptionsVisible ? <FaBookmark /> : <FaRegBookmark />}
+              {isInLibrary ? <FaBookmark /> : <FaRegBookmark />}
             </button>
           )}
 
-          {isOptionsVisible && (
+          {isInLibrary && (
             <div className="watched-options-container">
-              <select className="watched-options">
-                <option value="Not watched">Not Watched</option>
-                <option value="Watched">Watched</option>
+              <select
+                className="watched-options"
+                value={watched ? "watched" : "not_watched"}
+                onChange={(e) => setWatched(e.target.value === "watched")}
+              >
+                <option value="not_watched">Not Watched</option>
+                <option value="watched">Watched</option>
               </select>
             </div>
           )}
