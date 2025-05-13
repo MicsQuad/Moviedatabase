@@ -36,6 +36,27 @@ router.post('/watchlist', async (req, res) => {
     }
 });
 
+//remove a movie from the watchlist 
+router.delete('/watchlist', async (req, res) => {
+    const { memberId, movieId  } = req.body;
+
+    if (!memberId || !movieId ) {
+        return res.status(400).json({ message: 'memberId, movieId are required' });
+    }
+
+    try {
+        const result = await WatchStatus.findOneAndDelete({memberId, movieId});
+
+        if (!result) {
+            return res.status(404).json({ message: 'Watchlist entry not found.' });
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
 // Get user's watchlist by status
 router.get('/watchlist/:memberId/:status', async (req, res) => {
     const { memberId, status } = req.params;

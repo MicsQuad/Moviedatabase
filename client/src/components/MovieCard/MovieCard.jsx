@@ -20,14 +20,27 @@ function MovieCard({ movie }) {
         <p>Language: {movie.language}</p>
         <p className="movie-description">{movie.description}</p>
         <div className="watched-container">
-          <button
-            className={`bookmark-btn ${isOptionsVisible ? "visible" : ""}`}
-            onClick={() => {
-              setIsOptionsVisible((previousValue) => !previousValue);
-            }}
-          >
-            {isOptionsVisible ? <FaBookmark /> : <FaRegBookmark />}
-          </button>
+          {/* {localStorage.getItem("isLoggedIn") === "true" && (
+            <button
+              className={`bookmark-btn ${isOptionsVisible ? "visible" : ""}`}
+              onClick={() => {
+                setIsOptionsVisible((previousValue) => !previousValue);
+              }}
+            >
+              {isOptionsVisible ? <FaBookmark /> : <FaRegBookmark />}
+            </button>
+          )} */}
+          {
+            <button
+              className={`bookmark-btn ${isOptionsVisible ? "visible" : ""}`}
+              onClick={() => {
+                setIsOptionsVisible((previousValue) => !previousValue);
+              }}
+            >
+              {isOptionsVisible ? <FaBookmark /> : <FaRegBookmark />}
+            </button>
+          }
+
           {isOptionsVisible && (
             <div className="watched-options-container">
               <select className="watched-options">

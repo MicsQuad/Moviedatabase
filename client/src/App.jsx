@@ -5,6 +5,7 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import MovieDetailsFilters from "./components/MovieDetailsFilters/MovieDetailsFilters";
 import LibraryFilters from "./components/LibraryFilters/LibraryFilters";
 import Accordion from "./components/Accordion/Accordion";
+import About from "./components/About/About";
 import "./App.css";
 
 function App() {
@@ -66,6 +67,13 @@ function App() {
   return (
     <>
       <Header />
+      <div>
+        {localStorage.getItem("isLoggedIn") === "true"
+          ? "User is logged in"
+          : "Not logged in"}
+      </div>
+      <div>{localStorage.user}</div>
+      <About />
       <div id="options-wrapper">
         <SearchBar
           value={searchText}
