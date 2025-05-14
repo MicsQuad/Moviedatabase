@@ -64,13 +64,7 @@ function App() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dataToSend),
-    })
-      .then(() => {
-        console.log("success for add to library");
-      })
-      .catch(() => {
-        console.log("nah for add to library");
-      });
+    });
   };
 
   const removeMovieFromLibrary = (movieId) => {
@@ -90,13 +84,7 @@ function App() {
         memberId: user.id,
         movieId,
       }),
-    })
-      .then(() => {
-        console.log("success for delete from library");
-      })
-      .catch(() => {
-        console.log("nah for delete from library");
-      });
+    });
   };
 
   const setMovieWatchStatusInLibrary = (movieId, watched) => {
@@ -111,6 +99,17 @@ function App() {
     );
 
     // ... database
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    fetch("http://localhost:5000/api/watchlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        memberId: user.id,
+        movieId,
+        status: watched ? "watched" : "to be watched",
+      }),
+    });
   };
 
   const genres = [
