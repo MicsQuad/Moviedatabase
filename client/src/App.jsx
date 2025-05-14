@@ -66,10 +66,10 @@ function App() {
       body: JSON.stringify(dataToSend),
     })
       .then(() => {
-        console.log("success");
+        console.log("success for add to library");
       })
       .catch(() => {
-        console.log("nah");
+        console.log("nah for add to library");
       });
   };
 
@@ -78,7 +78,25 @@ function App() {
       library.filter((libraryEntry) => libraryEntry.movieId !== movieId),
     );
 
+    console.log("removed the movie");
+
     // ... database
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    fetch("http://localhost:5000/api/watchlist", {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        memberId: user.id,
+        movieId,
+      }),
+    })
+      .then(() => {
+        console.log("success for delete from library");
+      })
+      .catch(() => {
+        console.log("nah for delete from library");
+      });
   };
 
   const setMovieWatchStatusInLibrary = (movieId, watched) => {
