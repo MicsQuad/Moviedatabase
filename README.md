@@ -1,14 +1,32 @@
 
 # Movie Maze
 
-## 1. Clone the repo
+## 1. Technical Solutions
+
+### Frontend:
+* React
+* Vite
+* CSS
+* JavaScript
+* HTML
+* Axios
+
+### Backend:
+* Node.js
+* Express
+* MongoDB Atlas
+* JWT
+
+
+
+## 2. Clone the repo
 
 ```bash
 git clone https://github.com/MicsQuad/MovieDatabase.git
 cd MovieDatabase
 ```
 
-## 2. How to Run
+## 3. How to Run
 
 1. Install dependencies on root folder:
 
@@ -39,6 +57,3 @@ npm install express mongoose dotenv cors bcrypt jsonwebtoken
 cd ..
 npm run dev
 ```
-
-## 5. Additional Information
-...
