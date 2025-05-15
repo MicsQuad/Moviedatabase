@@ -13,7 +13,10 @@ const watchlistRoutes = require('./routes/watchlist');
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://moviedatabase-1-lj7q.onrender.com',
+    credentials: true,
+}));
 app.use(express.json());
 
 // Routes
