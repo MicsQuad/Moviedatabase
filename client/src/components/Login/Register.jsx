@@ -3,7 +3,8 @@ import { useState } from "react"
 import axios from "axios"
 //import { useNavigate } from "react-router-dom" //might be user later
 import './Login.css'
-import { FaUserCircle, FaRegArrowAltCircleLeft, FaSignInAlt } from 'react-icons/fa'; // To get icons
+import { FaUserCircle, FaRegArrowAltCircleLeft, FaSignInAlt } from 'react-icons/fa';
+import API_BASE_URL from "../../config.js"; // To get icons
 
 function RegisterForm() {
     const [formData, setFormData] = useState({ username: "", password: "", email: "" })
@@ -17,7 +18,7 @@ function RegisterForm() {
         e.preventDefault()
 
         try {
-            await axios.post("http://localhost:5000/api/register", formData)
+            await axios.post(`${API_BASE_URL}/api/register`, formData)
             alert("You have successfully been registered!")
             window.location.href = "/Login.html"
         } catch (error) {

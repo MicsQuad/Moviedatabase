@@ -7,6 +7,7 @@ import LibraryFilters from "./components/LibraryFilters/LibraryFilters";
 import Accordion from "./components/Accordion/Accordion";
 import About from "./components/About/About";
 import "./App.css";
+import API_BASE_URL from "./config";
 
 function App() {
   const [movies, setMovies] = useState([]);
@@ -20,7 +21,7 @@ function App() {
   const [showFilters, setShowFilters] = useState("none"); // "none" / "movieDetails" / "libraryStatus"
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/home")
+    fetch(`${API_BASE_URL}/api/home`)
       .then((res) => res.json())
       .then((data) => {
         setMovies(data);
@@ -34,7 +35,7 @@ function App() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (localStorage.getItem("token")) {
-      fetch(`http://localhost:5000/api/watchlist/${user.id}`)
+      fetch(`${API_BASE_URL}/api/watchlist/${user.id}`)
         .then((res) => res.json())
         .then((data) => {
           setLibrary(
@@ -60,7 +61,7 @@ function App() {
       status: "to be watched",
     };
 
-    fetch("http://localhost:5000/api/watchlist", {
+    fetch(`${API_BASE_URL}/api/watchlist`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(dataToSend),
@@ -77,7 +78,7 @@ function App() {
     // ... database
     const user = JSON.parse(localStorage.getItem("user"));
 
-    fetch("http://localhost:5000/api/watchlist", {
+    fetch(`${API_BASE_URL}/api/watchlist`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -101,7 +102,7 @@ function App() {
     // ... database
     const user = JSON.parse(localStorage.getItem("user"));
 
-    fetch("http://localhost:5000/api/watchlist", {
+    fetch(`${API_BASE_URL}/api/watchlist`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

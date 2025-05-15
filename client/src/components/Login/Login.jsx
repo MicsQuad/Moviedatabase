@@ -3,6 +3,7 @@ import { useState } from "react"
 import axios from "axios"
 import './Login.css'
 import { FaUserCircle, FaRegArrowAltCircleLeft, FaSignInAlt } from 'react-icons/fa'
+import API_BASE_URL from "../../config.js";
 
 function LoginForm() {
     const [formData, setFormData] = useState({  email: "", password: "" })
@@ -17,7 +18,7 @@ function LoginForm() {
         e.preventDefault()
 
         try {
-            const response = await axios.post("http://localhost:5000/api/login", formData)
+            const response = await axios.post(`${API_BASE_URL}/api/login`, formData)
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('user', JSON.stringify(response.data.user))
             alert("You have successfully logged in!")
