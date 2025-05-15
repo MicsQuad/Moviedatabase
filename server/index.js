@@ -41,7 +41,6 @@ app.use('/api', registerRoutes);
 app.use('/api', favouriteRoutes);
 app.use('/api', watchlistRoutes);
 
-// Error handling middleware for CORS errors
 app.use((err, req, res, next) => {
     if (err.message === 'Not allowed by CORS') {
         return res.status(403).json({ error: 'CORS policy does not allow this origin.' });
