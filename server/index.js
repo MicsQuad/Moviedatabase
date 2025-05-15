@@ -14,7 +14,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-    origin: 'https://moviedatabase-1-lj7q.onrender.com',
+    origin: 'moviedatabase-5ozm.vercel.app\n',
     credentials: true,
 }));
 app.use(express.json());
