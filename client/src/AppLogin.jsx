@@ -6,9 +6,9 @@ import './App.css';
 function AppLogin() {
   return (
     <>
-    <div class='spacemaker'></div>
+    <div className='spacemaker'></div>
     <LoginForm />
-    <div class='spacemaker'></div>
+    <div className='spacemaker'></div>
     </>
   )
 }

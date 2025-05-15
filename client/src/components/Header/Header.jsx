@@ -7,7 +7,8 @@ import { LuMenu } from "react-icons/lu";
 function Header(props) {
   return (
     <header className="header">
-      <h1 className="header-app-name">MovieMaze</h1>
+      <a href="about.html"><h2 className="header-about">About</h2></a>
+      <a href="index.html"><h1 className="header-app-name">MovieMaze</h1></a>
       <a href="Login.html" className="header-user-btn">
         <FaUserCircle />
       </a>

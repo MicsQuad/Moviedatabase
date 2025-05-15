@@ -40,13 +40,13 @@ function LoginForm() {
             <form id='loginForm' onSubmit={handleSubmit}>
                 <h2 id='formTitle'>Sign in</h2>
 
-                <div class='formField'>
-                    <label for='email'>Email:</label>
+                <div className='formField'>
+                    <label htmlFor='email'>Email:</label>
                     <input type='text' name='email' value={formData.email} onChange={handleChange}/>
                 </div>
                 
-                <div class='formField'>
-                    <label for='password'>Password:</label>
+                <div className='formField'>
+                    <label htmlFor='password'>Password:</label>
                     <input type='password' name='password' value={formData.password} onChange={handleChange}/>
                 </div>
 
@@ -56,7 +56,7 @@ function LoginForm() {
                     </button>
                 </div>
 
-                <div class='formField'>
+                <div className='formField'>
                     <p>Not a member?</p>
                     <a href='./Register.html'>Register here.</a>
                 </div>

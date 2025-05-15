@@ -161,7 +161,6 @@ function App() {
   return (
     <>
       <Header />
-      <About />
       <div id="options-wrapper">
         <SearchBar
           value={searchText}

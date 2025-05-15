@@ -11,20 +11,20 @@ function RegisterForm() {
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
-    };
+    }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         try {
             await axios.post("http://localhost:5000/api/register", formData)
             alert("You have successfully been registered!")
             window.location.href = "/Login.html"
         } catch (error) {
-            console.error(error);
+            console.error(error)
             alert("An error occurred while trying to register your account.")
         }
-  };
+    }
 
     return (
         <div id='loginPage'>
@@ -38,17 +38,17 @@ function RegisterForm() {
                 <h2 id='formTitle'>Register</h2>
 
                 <div className='formField'>
-                    <label for='username'>Username:</label>
+                    <label htmlFor='username'>Username:</label>
                     <input type='text' name='username' id='userName' value={formData.username} onChange={handleChange}/>
                 </div>
                 
                 <div className='formField'>
-                    <label for='password'>Password:</label>
+                    <label htmlFor='password'>Password:</label>
                     <input type='password' id='password' name='password' value={formData.password} onChange={handleChange}/>
                 </div>
 
                 <div className='formField'>
-                    <label for='email'>Email:</label>
+                    <label htmlFor='email'>Email:</label>
                     <input type='text' id='email' name='email' value={formData.email} onChange={handleChange}/>
                 </div>
 
