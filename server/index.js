@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
 
 const homeRoutes = require('./routes/home');
 const movieRoutes = require('./routes/movies');
@@ -8,8 +9,6 @@ const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const favouriteRoutes = require('./routes/favourite');
 const watchlistRoutes = require('./routes/watchlist');
-
-const path = require('path');
 
 dotenv.config();
 
@@ -24,11 +23,15 @@ app.use('/api', loginRoutes);
 app.use('/api', registerRoutes);
 app.use('/api', favouriteRoutes);
 app.use('/api', watchlistRoutes);
-app.use(express.static(path.join(__dirname, 'client/build')));
 
+// Use static files from React build
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+
+// Client side routing using index.html
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-})
+    res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+});
+
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
