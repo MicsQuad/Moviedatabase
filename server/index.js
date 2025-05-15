@@ -15,7 +15,7 @@ const app = express();
 
 const allowedOrigins = [
     'http://localhost:5173',               // Local frontend dev server
-    'https://moviedatabase-5ozm.vercel.app' // Deployed frontend URL
+    'https://moviedatabase-1-byk7.onrender.com' // Deployed frontend URL
 ];
 
 app.use(cors({
