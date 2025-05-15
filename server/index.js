@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const path = require('path');
 
 const homeRoutes = require('./routes/home');
 const movieRoutes = require('./routes/movies');
@@ -23,9 +24,14 @@ app.use('/api', registerRoutes);
 app.use('/api', favouriteRoutes);
 app.use('/api', watchlistRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Welcome to the Movie Database API!');
-})
+// Use static files from React build
+app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+
+// Client side routing using index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
+});
+
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
