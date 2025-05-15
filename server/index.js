@@ -13,7 +13,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-    origin: 'moviedatabase-5ozm.vercel.app\n',
+    origin: 'moviedatabase-5ozm.vercel.app',
     credentials: true,
 }));
 app.use(express.json());
