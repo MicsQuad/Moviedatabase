@@ -12,7 +12,25 @@ const watchlistRoutes = require('./routes/watchlist');
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+const allowedOrigins = [
+    'http://localhost:5173',               // Local frontend dev server
+    'https://moviedatabase-1-byk7.onrender.com' // Deployed frontend URL
+];
+
+app.use(cors({
+    origin: function(origin, callback) {
+        // Allow requests with no origin (like Postman or curl)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true,
+}));
+
 app.use(express.json());
 
 // Routes
@@ -23,11 +41,19 @@ app.use('/api', registerRoutes);
 app.use('/api', favouriteRoutes);
 app.use('/api', watchlistRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Welcome to the Movie Database API!');
-})
+app.use((err, req, res, next) => {
+    if (err.message === 'Not allowed by CORS') {
+        return res.status(403).json({ error: 'CORS policy does not allow this origin.' });
+    }
+    next(err);
+});
 
-const PORT = process.env.PORT;
+app.get('/', (req, res) => {
+    res.send('Backend API is running');
+});
+
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
-})
+});

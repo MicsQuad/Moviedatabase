@@ -30,7 +30,7 @@ router.post('/login', async (req, res) => {
 
     // Check if fields are provided
     if (!email || !password) {
-        console.log("Missing:", { email, password }); // ⬅️ Add this
+        console.log("Missing:", { email, password });
         return res.status(400).json({ message: 'Email and password are required' });
     }
 
