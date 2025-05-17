@@ -1,69 +1,116 @@
-import React from 'react';
-import { useState } from "react"
-import axios from "axios"
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import './Login.css'
 import { FaUserCircle, FaRegArrowAltCircleLeft, FaSignInAlt } from 'react-icons/fa'
-import API_BASE_URL from "../../config.js";
+import API_BASE_URL from '../../config.js'
 
 function LoginForm() {
-    const [formData, setFormData] = useState({  email: "", password: "" })
-    //const navigate = useNavigate
-    
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    };
+  const [formData, setFormData] = useState({ email: '', password: '' })
+  const [errors, setErrors] = useState([])
+  const [isFormValid, setIsFormValid] = useState(false)
 
-    //log in and store token locally
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+  useEffect(() => {
+    validateForm()
+  }, [formData])
 
-        try {
-            const response = await axios.post(`${API_BASE_URL}/api/login`, formData)
-            localStorage.setItem('token', response.data.token)
-            localStorage.setItem('user', JSON.stringify(response.data.user))
-            alert("You have successfully logged in!")
-            window.location.href = "/index.html"
-        } catch (error) {
-            console.error(error.response?.data || error)
-            alert(error.response?.data?.message || "Login failed")
-        }
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData({
+      ...formData,
+      [name]: value
+    })
+  }
+
+  const hasNumber = (string) => /\d/.test(string)
+
+  const validateForm = () => {
+    const messages = []
+    let valid = true
+
+    if (!formData.email || !formData.email.includes('@') || !formData.email.includes('.')) {
+      messages.push('Please enter a valid email.')
+      valid = false
     }
 
-    //generate DOM content
-    return (
-        <div id='loginPage'>
-            <div id='topIcons'>
-                <a href='./index.html' id='backBtn'>
-                    <FaRegArrowAltCircleLeft id='backArrow' />
-                </a>
-                <FaUserCircle id='userIcon'/>
-            </div>
-            <form id='loginForm' onSubmit={handleSubmit}>
-                <h2 id='formTitle'>Sign in</h2>
+    if (!formData.password || formData.password.length < 8 || !hasNumber(formData.password)) {
+      messages.push('Password must be at least 8 characters long and contain at least one number.')
+      valid = false
+    }
 
-                <div className='formField'>
-                    <label htmlFor='email'>Email:</label>
-                    <input type='text' name='email' value={formData.email} onChange={handleChange}/>
-                </div>
-                
-                <div className='formField'>
-                    <label htmlFor='password'>Password:</label>
-                    <input type='password' name='password' value={formData.password} onChange={handleChange}/>
-                </div>
+    setErrors(messages)
+    setIsFormValid(valid)
+    return valid
+  }
 
-                <div id='loginBtnWrapper'>
-                    <button type='submit' id='loginBtn'>
-                        <FaSignInAlt id='loginIcon' />
-                    </button>
-                </div>
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!validateForm()) return
 
-                <div className='formField'>
-                    <p>Not a member?</p>
-                    <a href='./Register.html'>Register here.</a>
-                </div>
-            </form>
+    try {
+      const response = await axios.post(`${API_BASE_URL}/api/login`, formData)
+      localStorage.setItem('token', response.data.token)
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+      alert('You have successfully logged in!')
+      window.location.href = '/index.html'
+    } catch (error) {
+      console.error(error.response?.data || error)
+      alert(error.response?.data?.message || 'Login failed')
+    }
+  }
+
+  return (
+    <div id='loginPage'>
+      <div id='topIcons'>
+        <a href='./index.html' id='backBtn'>
+          <FaRegArrowAltCircleLeft id='backArrow' />
+        </a>
+        <FaUserCircle id='userIcon' />
+      </div>
+
+      <form id='loginForm' onSubmit={handleSubmit}>
+        <h2 id='formTitle'>Sign in</h2>
+
+        <div className='formField'>
+          <label htmlFor='email'>Email:</label>
+          <input
+            type='text'
+            name='email'
+            value={formData.email}
+            onChange={handleChange}
+          />
         </div>
-    )
+
+        <div className='formField'>
+          <label htmlFor='password'>Password:</label>
+          <input
+            type='password'
+            name='password'
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </div>
+
+        {errors.length > 0 && (
+          <div className='errorMessages'>
+            {errors.map((err, index) => (
+              <div key={index}>{err}</div>
+            ))}
+          </div>
+        )}
+
+        <div id='loginBtnWrapper'>
+          <button type='submit' id='loginBtn' disabled={!isFormValid}>
+            <FaSignInAlt id='loginIcon' />
+          </button>
+        </div>
+
+        <div className='formField'>
+          <p>Not a member?</p>
+          <a href='./Register.html'>Register here.</a>
+        </div>
+      </form>
+    </div>
+  )
 }
 
 export default LoginForm

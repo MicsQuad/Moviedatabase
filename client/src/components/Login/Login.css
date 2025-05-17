@@ -111,3 +111,6 @@ input {
     }
 }
 
+.errorMessages {
+    text-align: center;
+}
