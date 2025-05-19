@@ -50,6 +50,7 @@ function LoginForm() {
       const response = await axios.post(`${API_BASE_URL}/api/login`, formData)
       localStorage.setItem('token', response.data.token)
       localStorage.setItem('user', JSON.stringify(response.data.user))
+      
       alert('You have successfully logged in!')
       window.location.href = '/index.html'
     } catch (error) {

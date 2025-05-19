@@ -38,13 +38,13 @@ router.post('/login', async (req, res) => {
         // Check if the member exists
         const memberData = await Member.findOne({ email });
         if (!memberData) {
-            return res.status(400).json({ message: 'Invalid credentials' })
+            return res.status(400).json({ message: 'Email is not registered.' })
         }
 
         // Check if the password matches using bcrypt
         const match = await bcrypt.compare(password, memberData.password);
         if (!match) {
-            return res.status(400).json({ message: 'Invalid credentials' })
+            return res.status(400).json({ message: 'Incorrect password.' })
         }
 
         // Token expires after 1 hour
